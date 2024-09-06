@@ -1,12 +1,16 @@
-const express = require('express')
-const cors = require('cors')
-const app = express()
+const express = require('express');
+const cors = require('cors');
+const app = express();
 require('dotenv').config()
 const port = process.env.PORT || 5000;
 
 // middleware
 app.use(cors({
-    origin: 'https://furni-flex-174f4.web.app' 
+    origin: [
+        'https://furni-flex-174f4.web.app',
+        'http://localhost:5173'
+    ],
+    credentials: true 
 }));
 app.use(express.json());
 
