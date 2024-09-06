@@ -25,15 +25,24 @@ async function run() {
         // Connect the client to the server	(optional starting in v4.7)
         await client.connect();
         const productsCollection = client.db('furniFlexDB').collection('products');
-        
+        const cartsCollection = client.db('furniFlexDB').collection('carts');
+
         // products related apis
-        app.get('/products', async(req,res)=>{
+        app.get('/products', async (req, res) => {
             const result = await productsCollection.find().toArray();
             res.send(result);
         })
 
-        app.post('/carts', async(req,res)=>{
-            
+        // cart related apis
+        app.get('/carts', async (req, res) => {
+            const result = await cartsCollection.find().toArray();
+            res.send(result);
+        });
+
+        app.post('/carts', async (req, res) => {
+            const item = req.body;
+            const result = await cartsCollection.insertOne(item);
+            res.send(result)
         })
 
         // Send a ping to confirm a successful connection
